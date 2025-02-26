@@ -12,6 +12,7 @@ class Automate; // Pré-déclaration de la classe Automate
 class Etat {
 public:
     Etat(string name); 
+    Etat();
     virtual ~Etat();
     void print() const;
     virtual bool transition(Automate & automate, Symbole* s)=0; 

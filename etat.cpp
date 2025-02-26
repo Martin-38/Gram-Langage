@@ -5,6 +5,7 @@
 #include <iostream>
 
 Etat::Etat(const string name) : name(name) {}
+Etat::Etat();
 ~Etat::Etat();
 
 bool Etat0::transition(Automate & automate, Symbole* s){
