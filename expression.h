@@ -11,9 +11,10 @@ using namespace std;
 
 class Expression : public Symbole {
     protected:
-        int valeur;
+        
   
     public:
+        int valeur;
         Expression(int valeur):Symbole(EXPR),valeur(valeur) {} 
         ~Expression() {}
         int eval();
