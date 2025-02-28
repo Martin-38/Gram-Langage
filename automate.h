@@ -4,6 +4,7 @@
 #include <string>
 #include "etat.h"
 #include "symbole.h"
+#include "expression.h"
 #include "lexer.h"
 
 
@@ -18,9 +19,10 @@ class Automate {
       void transitionSimple(Symbole *s, Etat *e);
       void reduction(int n, Symbole *s);
       void run();
-      Symbole * popSymbole();
+      void AffichePileEtats();
+      void AffichePileSymboles();
+      Entier * popSymbole();
       void popAndDestroySymbole();
-      // Il faut que je rajoute une transition simple ? 
 
    protected:
       std::stack<Etat*> pileEtats;

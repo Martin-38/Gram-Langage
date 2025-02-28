@@ -2,6 +2,7 @@
 
 #include <string>
 #include "symbole.h"
+#include <string>
 using namespace std;
 
 #ifndef ETAT_H
@@ -14,7 +15,7 @@ public:
     Etat();
     Etat(string name); 
     virtual ~Etat();
-    void print() const;
+    virtual void print() const;
     virtual bool transition(Automate & automate, Symbole* s)=0; 
 //La classe etat est une classe abstraite
 
@@ -27,70 +28,80 @@ protected:
 
 class Etat0 : public Etat {
     public:
-    void print() const;
+    Etat0();
     bool transition(Automate & automate, Symbole* s);
     protected:
+    string name;
     };
 
 class Etat1 : public Etat {
     public:
-    void print() const;
+    Etat1();
     bool transition(Automate & automate, Symbole* s);
     protected:
+    string name;
     };
 
 class Etat2 : public Etat {
     public:
-    void print() const;
+    Etat2();
     bool transition(Automate & automate, Symbole* s);
     protected:
+    string name;
     };
 
 class Etat3 : public Etat {
     public:
-    void print() const;
+    Etat3();
     bool transition(Automate & automate, Symbole* s);
     protected:
+    string name;
     };
 
 class Etat4 : public Etat {
     public:
-    void print() const;
+    Etat4();
     bool transition(Automate & automate, Symbole* s);
     protected:
+    string name;
     };
 
 class Etat5 : public Etat {
     public:
-    void print() const;
+    Etat5();
     bool transition(Automate & automate, Symbole* s);
     protected:
+    string name;
     };
 
 class Etat6 : public Etat {
     public:
-    void print() const;
+    Etat6();
     bool transition(Automate & automate, Symbole* s);
     protected:
+    string name;
     };
 
 class Etat7 : public Etat {
     public:
-    void print() const;
+    Etat7();
     bool transition(Automate & automate, Symbole* s);
     protected:
+    string name;
     };
 
 class Etat8: public Etat {
     public:
-    void print() const;
+    Etat8();
     bool transition(Automate & automate, Symbole* s);
     protected:
+    string name;
     };
 
 class Etat9 : public Etat {
     public:
-    void print() const;
+    Etat9();
     bool transition(Automate & automate, Symbole* s);
     protected:
+    string name;
     };
