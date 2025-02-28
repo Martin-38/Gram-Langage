@@ -1,7 +1,10 @@
 #include "automate.h"
 #include "etat.h"
+#include "symbole.h"
 #include "lexer.h"
 #include <iostream>
+
+using namespace std;
 
 Automate::Automate(string flux) { //flux c est l expression : par exemple : 3+4*6 
   this->lexer = new Lexer(flux);
@@ -12,7 +15,7 @@ Automate::Automate(string flux) { //flux c est l expression : par exemple : 3+4*
 void Automate::run() {
     bool prochainEtat = true;
 
-    while (prochainEtat) {
+    while (!prochainEtat) {
         Symbole * s = lexer->Consulter(); // Assign a value to 's'
         lexer->Avancer();
         prochainEtat = pileEtats.top()->transition(*this, s);
@@ -25,12 +28,18 @@ void Automate::run() {
     } else {
         cout << "Syntaxe non reconnu : caractere invalide" << endl;
     }
+    pileSymboles.top()->Affiche();
 }
 
 void Automate::decalage(Symbole * s, Etat * e) {
     pileSymboles.push(s);
     pileEtats.push(e);
     lexer->Avancer(); // A VERIFIER S'IL Y A VRMT BESOIN D'UN AVANCEMENT
+}
+
+void Automate::transitionSimple(Symbole * s, Etat * e) {
+    pileSymboles.push(s);
+    pileEtats.push(e);
 }
 
 void Automate::reduction(int n, Symbole * s) {

@@ -5,8 +5,8 @@
 #include <iostream>
 
 Etat::Etat(const string name) : name(name) {}
-Etat::Etat() : name('Default') {}
-~Etat::Etat();
+Etat::Etat() : name("Default") {}
+Etat::~Etat() {}
 
 bool Etat0::transition(Automate & automate, Symbole* s){
     switch(*s){
@@ -19,7 +19,7 @@ bool Etat0::transition(Automate & automate, Symbole* s){
         case EXPR:
             automate.transitionSimple(s, new Etat1());
             break;
-        case default:
+        default:
             cout<<"Erreur de syntaxe"<<endl;
             break;
     }
@@ -36,7 +36,7 @@ bool Etat1::transition(Automate & automate, Symbole* s){
             break;
         case FIN:
             return true;
-        case default:
+        default:
             cout<<"Erreur de syntaxe"<<endl;
             break;
     }
@@ -52,8 +52,8 @@ bool Etat2::transition(Automate & automate, Symbole* s){
             automate.decalage(s, new Etat2());
             break;
         case EXPR:
-            automate.transitionSimple(s, new Etat6())
-        case default:
+            automate.transitionSimple(s, new Etat6());
+        default:
             cout<<"Erreur de syntaxe"<<endl;
             break;
     }
@@ -63,24 +63,25 @@ bool Etat2::transition(Automate & automate, Symbole* s){
 
 //PB ETAT 3 AVEC REDUCS
 bool Etat3::transition(Automate & automate, Symbole* s){
+    Expression* s1;
     switch(*s){
         case PLUS:
-            Expression* s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.reduction(1, s1);
             break;
         case MULT:
-            Expression* s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.reduction(1, s1);
             break;
         case CLOSEPAR:
-            Expression* s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.reduction(1, s1);
             break;
         case FIN:
-            Expression* s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.reduction(1, s1);
             break;
-        case default:
+        default:
             cout<<"Erreur de syntaxe"<<endl;
             break;
     }
@@ -98,7 +99,7 @@ bool Etat4::transition(Automate & automate, Symbole* s){
         case EXPR:
             automate.transitionSimple(s, new Etat7);
             break;
-        case default:
+        default:
             cout<<"Erreur de syntaxe"<<endl;
             break;
     }
@@ -116,7 +117,7 @@ bool Etat5::transition(Automate & automate, Symbole* s){
         case EXPR:
             automate.transitionSimple(s, new Etat8);
             break;
-        case default:
+        default:
             cout<<"Erreur de syntaxe"<<endl;
             break;
     }
@@ -134,7 +135,7 @@ bool Etat6::transition(Automate & automate, Symbole* s){
         case CLOSEPAR:
             automate.decalage(s, new Etat9);
             break;
-        case default:
+        default:
             cout<<"Erreur de syntaxe"<<endl;
             break;
     }
@@ -143,11 +144,13 @@ bool Etat6::transition(Automate & automate, Symbole* s){
 
 //PB REDUCTION
 bool Etat7::transition(Automate & automate, Symbole* s){
+    Expression* s1;
+    Expression* s2;
     switch(*s){
         case PLUS:
-            Expression* s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
-            Expression* s2 = (Expression*) automate.popSymbole();
+            s2 = (Expression*) automate.popSymbole();
             s1->valeur = s1->valeur + s2->valeur;
             delete(s2);
             automate.reduction(3, s1);
@@ -156,22 +159,22 @@ bool Etat7::transition(Automate & automate, Symbole* s){
             automate.decalage(s, new Etat5);
             break;
         case CLOSEPAR:
-            Expression* s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
-            Expression* s2 = (Expression*) automate.popSymbole();
+            s2 = (Expression*) automate.popSymbole();
             s1->valeur = s1->valeur + s2->valeur;
             delete(s2);
             automate.reduction(3, s1);
             break;
         case FIN:
-            Expression* s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
-            Expression* s2 = (Expression*) automate.popSymbole();
+            s2 = (Expression*) automate.popSymbole();
             s1->valeur = s1->valeur + s2->valeur;
             delete(s2);
             automate.reduction(3, s1);
             break;
-        case default:
+        default:
             cout<<"Erreur de syntaxe"<<endl;
             break;
     }
@@ -181,39 +184,41 @@ bool Etat7::transition(Automate & automate, Symbole* s){
 //PB REDUCTION
 bool Etat8::transition(Automate & automate, Symbole* s){
     switch(*s){
+        Expression* s1;
+        Expression* s2;
         case PLUS:
-            Expression* s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
-            Expression* s2 = (Expression*) automate.popSymbole();
+            s2 = (Expression*) automate.popSymbole();
             s1->valeur = s1->valeur * s2->valeur;
             delete(s2);
             automate.reduction(3, s1);
             break;
         case MULT:
-            Expression* s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
-            Expression* s2 = (Expression*) automate.popSymbole();
+            s2 = (Expression*) automate.popSymbole();
             s1->valeur = s1->valeur * s2->valeur;
             delete(s2);
             automate.reduction(3, s1);
             break;
         case CLOSEPAR:
-            Expression* s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
-            Expression* s2 = (Expression*) automate.popSymbole();
+            s2 = (Expression*) automate.popSymbole();
             s1->valeur = s1->valeur * s2->valeur;
             delete(s2);
             automate.reduction(3, s1);
             break;
         case FIN:
-            Expression* s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
-            Expression* s2 = (Expression*) automate.popSymbole();
+            s2 = (Expression*) automate.popSymbole();
             s1->valeur = s1->valeur * s2->valeur;
             delete(s2);
             automate.reduction(3, s1);
             break;
-        case default:
+        default:
             cout<<"Erreur de syntaxe"<<endl;
             break;
     }
@@ -223,31 +228,32 @@ bool Etat8::transition(Automate & automate, Symbole* s){
 //PB REDUCTION
 bool Etat9::transition(Automate & automate, Symbole* s){
     switch(*s){
+        Expression* s1;
         case PLUS:
             automate.popAndDestroySymbole();
-            Expression * s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
             automate.reduction(3, s1);
             break;
         case MULT:
             automate.popAndDestroySymbole();
-            Expression * s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
             automate.reduction(3, s1);
             break;
         case CLOSEPAR:
             automate.popAndDestroySymbole();
-            Expression * s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
             automate.reduction(3, s1);
             break;  
         case FIN:
             automate.popAndDestroySymbole();
-            Expression * s1 = (Expression*) automate.popSymbole();
+            s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
             automate.reduction(3, s1);
             break;
-        case default:
+        default:
             cout<<"Erreur de syntaxe"<<endl;
             break;
     }
