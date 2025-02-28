@@ -1,0 +1,16 @@
+# Fichiers objets
+*.o
+
+# Exécutables
+programme
+*.exe
+*.out
+
+# Fichiers de débogage
+*.gch
+*.swp
+*.dSYM/
+vgcore.*
+
+# Fichiers générés par certains outils
+*.log
