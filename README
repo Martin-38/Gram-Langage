@@ -1,0 +1,19 @@
+# Gram-Langage
+
+## Description
+Gram-Langage est un projet en C++ qui implémente un analyseur lexical et syntaxique basé sur un automate.  
+Il prend en entrée une chaîne représentant une expression mathématique et l'analyse. 
+On peut modifier cete expression ligne 8 du fichier main.cpp.
+
+## Installation et Compilation
+### Prérequis
+- Un compilateur C++ (g++)
+- `make` pour la compilation
+
+### Compilation
+Compiler le programme avec:
+make
+
+### Execution
+Executer le programme avec:
+./programme
