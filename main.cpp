@@ -5,7 +5,7 @@
 
 
 int main(void) {
-   string chaine("(1+34)*123");
+   string chaine("3*2+22");
    Automate* automate = new Automate(chaine);
    automate->run();
    delete automate;

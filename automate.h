@@ -24,9 +24,12 @@ class Automate {
       void AffichePileSymboles();
       Entier * popSymbole();
       void popAndDestroySymbole();
+      int getCompteur();
+      void augmenterDeUnCompteur();
 
    protected:
       std::stack<Etat*> pileEtats;
       std::stack<Symbole*> pileSymboles;
       Lexer * lexer;   
+      int compteur;
 };

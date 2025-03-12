@@ -13,8 +13,8 @@ using namespace std;
 Automate::Automate(string flux) { 
   this->lexer = new Lexer(flux);
   Etat0 * depart = new Etat0();
-  depart->print();
   pileEtats.push(depart);
+  compteur = 1;
 } 
 
 Automate::~Automate() {
@@ -39,11 +39,7 @@ Automate::~Automate() {
 void Automate::run() {
     bool prochainEtat = false;
     while (!prochainEtat) {
-        this->AffichePileEtats();
-        this->AffichePileSymboles();
         Symbole * s = lexer->Consulter(); // Assign a value to 's'
-        s->Affiche();
-        std::this_thread::sleep_for(std::chrono::seconds(1)); // Pause de 1 seconde
         //lexer->Avancer();
         prochainEtat = pileEtats.top()->transition(*this, s);
     }
@@ -63,6 +59,7 @@ void Automate::run() {
 
 void Automate::decalage(Symbole * s, Etat * e) {
     pileSymboles.push(s);
+    augmenterDeUnCompteur();
     pileEtats.push(e);
     lexer->Avancer(); 
 }
@@ -73,21 +70,12 @@ void Automate::transitionSimple(Symbole * s, Etat * e) {
 }
 
 void Automate::reduction(int n, Symbole * s) {
-    cout << "DEBUT REDUCTION" << endl;
-    this->AffichePileEtats();
-    this->AffichePileSymboles();
     for (int i = 0; i < n; i++) {
         delete pileEtats.top();
         pileEtats.pop();
     }
     pileSymboles.push(s);
-    cout << "MI REDUCTION" << endl;
-    this->AffichePileEtats();
-    this->AffichePileSymboles();
     pileEtats.top()->transition(*this, s);
-    cout << "FIN REDUCTION" << endl;
-    this->AffichePileEtats();
-    this->AffichePileSymboles();
 }
 
 Entier * Automate::popSymbole() {
@@ -121,4 +109,13 @@ void Automate::AffichePileSymboles() {
     }
     std::cout << std::endl;
 }
+
+int Automate::getCompteur(){
+    return compteur;
+}
+
+void Automate::augmenterDeUnCompteur(){
+    compteur++;
+}
+
 
