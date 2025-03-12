@@ -3,9 +3,8 @@
 #include "symbole.h"
 #include "lexer.h"
 #include "expression.h"
+#include"syntaxErrorException.h"
 #include <iostream>
-#include <chrono>  // Pour std::chrono::seconds
-#include <thread>  // Pour std::this_thread::sleep_for
 
 
 using namespace std;
@@ -37,35 +36,32 @@ Automate::~Automate() {
 
 
 void Automate::run() {
-    bool prochainEtat = false;
-    while (!prochainEtat) {
-        Symbole * s = lexer->Consulter(); // Assign a value to 's'
-        //lexer->Avancer();
-        prochainEtat = pileEtats.top()->transition(*this, s);
-    }
-    //JE N'AI PAS GERER LES TRUES
-    if (*pileSymboles.top() != ERREUR) {
-        // int resultat = pileSymboles.top()->getValue();
-        // cout << "Syntaxe correct" << endl << "Résultat : " << resultat << endl;
-        cout << "\nSyntaxe correcte" << endl;
-        Expression* finale = (Expression*) pileSymboles.top();
-        cout << "Le résultat de votre calcul est : ";
-        cout << finale->eval() << endl;
-    } else {
-        cout << "Syntaxe non reconnu : caractere invalide" << endl;
-    }
-    //pileSymboles.top()->Affiche();
+    try{
+        bool prochainEtat = false;
+        while (!prochainEtat) {
+            Symbole * s = lexer->Consulter(); // Le symbole suivant est consulté grace au lexeur
+            prochainEtat = pileEtats.top()->transition(*this, s);
+        }
+        if (*pileSymboles.top() != ERREUR) { //Le dernier symbole restant est soit une erreur soit l'expression finale
+            cout << "\nSyntaxe correcte" << endl;
+            Expression* finale = (Expression*) pileSymboles.top();
+            cout << "Le résultat de votre calcul est : ";
+            cout << finale->eval() << endl;
+        } else {
+            cout << "Syntaxe non reconnu : caractère invalide" << endl;
+        }
+    } catch(const SyntaxErrorException& e) {}
 }
 
 void Automate::decalage(Symbole * s, Etat * e) {
-    pileSymboles.push(s);
-    augmenterDeUnCompteur();
+    pileSymboles.push(s); //En cas de décalage, on prend le symbole suivant
+    augmenterDeUnCompteur(); // On augmente le compteur pour savoir à quelle position de la chaîne on est.
     pileEtats.push(e);
     lexer->Avancer(); 
 }
 
 void Automate::transitionSimple(Symbole * s, Etat * e) {
-    //pileSymboles.push(s);
+// Transition simple : après une réduction, on fait une transition simple vers le prochain etat sans consommer un nouveau symbole
     pileEtats.push(e);
 }
 
@@ -79,6 +75,7 @@ void Automate::reduction(int n, Symbole * s) {
 }
 
 Entier * Automate::popSymbole() {
+    //Le symbole n'est pas delete car il sera réutilisé plus tard.
     Entier * s = (Entier*) pileSymboles.top();
     pileSymboles.pop();
     return s;
@@ -97,7 +94,7 @@ void Automate::AffichePileEtats() {
         temp.pop();
     }
     std::cout << std::endl;
-}
+} // Pour l'affichage de la pile des etats.
 
 void Automate::AffichePileSymboles() {
     std::cout << "Pile des symboles : ";
@@ -108,7 +105,7 @@ void Automate::AffichePileSymboles() {
         temp.pop();
     }
     std::cout << std::endl;
-}
+} //Pour l'affichage de la pile des symboles.
 
 int Automate::getCompteur(){
     return compteur;
@@ -116,6 +113,6 @@ int Automate::getCompteur(){
 
 void Automate::augmenterDeUnCompteur(){
     compteur++;
-}
+} // Ce compteur représente la position du caractère étudié dans la chaîne initiale. Il permet de signaler plus précisément les erreurs.
 
 

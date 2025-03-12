@@ -4,6 +4,7 @@
 #include "automate.h"
 #include "symbole.h"
 #include "expression.h"
+#include"syntaxErrorException.h"
 #include <iostream>
 
 using namespace std;
@@ -39,7 +40,8 @@ bool Etat0::transition(Automate & automate, Symbole* s){
             break;
         default:
             cout<< "Erreur de syntaxe E0 : commencez votre expression par une valeur ou une parenthèse ouvrante"<<endl;
-            exit(1);
+            delete s; 
+            throw SyntaxErrorException();
             break;
     }
     return false;
@@ -60,7 +62,8 @@ bool Etat1::transition(Automate & automate, Symbole* s){
             int compteur = automate.getCompteur();
             cout<<"Erreur de syntaxe E1 au niveau du caractere numero : "<< compteur <<endl;
             cout << "Un + ou un * ou une fin d'expression était attendu" << endl;
-            exit(1);
+            delete s; 
+            throw SyntaxErrorException();
             break;
     }
     return false;
@@ -81,7 +84,8 @@ bool Etat2::transition(Automate & automate, Symbole* s){
             int compteur = automate.getCompteur();
             cout<<"Erreur de syntaxe E2 : au niveau du caractere numero : "<< compteur <<endl;
             cout << "Une valeur ou une parenthèse ouvrante était attendue" << endl;
-            exit(1);
+            delete s; 
+            throw SyntaxErrorException();
             break;
     }
     return false;
@@ -121,7 +125,8 @@ bool Etat3::transition(Automate & automate, Symbole* s){
             int compteur = automate.getCompteur();
             cout<<"Erreur de synthaxe E3: une valeur était attendue au niveau du caractere numero : "<< compteur <<endl;
             cout << "On attendait au choix : + ou * ou ) ou une fin d'expression" << endl;
-            exit(1);
+            delete s; 
+            throw SyntaxErrorException();
             break;
     }
     return false;
@@ -142,7 +147,8 @@ bool Etat4::transition(Automate & automate, Symbole* s){
             int compteur = automate.getCompteur();      
             cout<<"Erreur de syntaxe E4: au niveau du caractere numero : "<< compteur <<endl;
             cout<<"On attendait au choix : une valeur ou une parenthèse ouvrante"<<endl;
-            exit(1);
+            delete s; 
+            throw SyntaxErrorException();
             break;
     }
     return false;
@@ -163,7 +169,8 @@ bool Etat5::transition(Automate & automate, Symbole* s){
             int compteur = automate.getCompteur();
             cout<<"Erreur de syntaxe E5: au niveau du caractere numero : "<< compteur <<endl;
             cout<<"On attendait au choix : une valeur ou une parenthèse ouvrante"<<endl;
-            exit(1);
+            delete s; 
+            throw SyntaxErrorException();
             break;
     }
     return false;
@@ -184,7 +191,8 @@ bool Etat6::transition(Automate & automate, Symbole* s){
             int compteur = automate.getCompteur();
             cout<<"Erreur de syntaxe E6: au niveau du caractere numero : "<< compteur <<endl;
             cout<<"On attendait au choix : + ou * ou )"<<endl;
-            exit(1);
+            delete s; 
+            throw SyntaxErrorException();
             break;
     }
     return false;
@@ -226,7 +234,8 @@ bool Etat7::transition(Automate & automate, Symbole* s){
             int compteur = automate.getCompteur();
             cout<<"Erreur de syntaxe E7: au niveau du caractere numero : "<< compteur <<endl;
             cout<<"On attendait au choix : + ou * ou ) ou une fin d'expression"<<endl;
-            exit(1);
+            delete s; 
+            throw SyntaxErrorException();
             break;
     }
     return false;
@@ -273,7 +282,8 @@ bool Etat8::transition(Automate & automate, Symbole* s){
             int compteur = automate.getCompteur();
             cout<<"Erreur de syntaxe E8: au niveau du caractere numero : "<< compteur <<endl;
             cout<<"On attendait au choix : + ou * ou ) ou une fin d'expression"<<endl;
-            exit(1);
+            delete s; 
+            throw SyntaxErrorException();
             break;
     }
     return false;
@@ -310,7 +320,8 @@ bool Etat9::transition(Automate & automate, Symbole* s){
         default:
             int compteur = automate.getCompteur();
             cout<<"Erreur de syntaxe E9: au niveau du caractere numero : "<< compteur <<endl;
-            exit(1);
+            delete s; 
+            throw SyntaxErrorException();
             break;
     }
     return false;

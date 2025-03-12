@@ -11,6 +11,7 @@ using namespace std;
 
 class Expression : public Symbole {
     protected:
+    //Pour stocker la valeur de l'expression
     int valeur;
   
     public:  
