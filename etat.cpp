@@ -94,21 +94,25 @@ bool Etat3::transition(Automate & automate, Symbole* s){
             s1 = (Entier*) automate.popSymbole();
             s2 = new Expression(s1->getValeur());
             automate.reduction(1, s2);
+            delete s1;
             break;
         case MULT:
             s1 = (Entier*) automate.popSymbole();
             s2 = new Expression(s1->getValeur());
             automate.reduction(1, s2);
+            delete s1;
             break;
         case CLOSEPAR:
             s1 = (Entier*) automate.popSymbole();
             s2 = new Expression(s1->getValeur());
             automate.reduction(1, s2);
+            delete s1;
             break;
         case FIN:
             s1 = (Entier*) automate.popSymbole();
             s2 = new Expression(s1->getValeur());
             automate.reduction(1, s2);
+            delete s1;
             break;
         default:
             cout<<"Erreur de syntaxe E3"<<endl;
@@ -184,7 +188,7 @@ bool Etat7::transition(Automate & automate, Symbole* s){
             s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
             s2 = (Expression*) automate.popSymbole();
-            s1->valeur = s1->valeur + s2->valeur;
+            s1->set_valeur(s1->eval() + s2 ->eval());
             delete(s2);
             automate.reduction(3, s1);
             break;
@@ -195,7 +199,7 @@ bool Etat7::transition(Automate & automate, Symbole* s){
             s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
             s2 = (Expression*) automate.popSymbole();
-            s1->valeur = s1->valeur + s2->valeur;
+            s1->set_valeur(s1->eval() + s2 ->eval());
             delete(s2);
             automate.reduction(3, s1);
             break;
@@ -203,7 +207,7 @@ bool Etat7::transition(Automate & automate, Symbole* s){
             s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
             s2 = (Expression*) automate.popSymbole();
-            s1->valeur = s1->valeur + s2->valeur;
+            s1->set_valeur(s1->eval() + s2 ->eval());
             delete(s2);
             automate.reduction(3, s1);
             break;
@@ -224,7 +228,7 @@ bool Etat8::transition(Automate & automate, Symbole* s){
             s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
             s2 = (Expression*) automate.popSymbole();
-            s1->valeur = s1->valeur * s2->valeur;
+            s1->set_valeur(s1->eval() * s2 ->eval());
             delete(s2);
             automate.reduction(3, s1);
             break;
@@ -232,7 +236,7 @@ bool Etat8::transition(Automate & automate, Symbole* s){
             s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
             s2 = (Expression*) automate.popSymbole();
-            s1->valeur = s1->valeur * s2->valeur;
+            s1->set_valeur(s1->eval() * s2 ->eval());
             delete(s2);
             automate.reduction(3, s1);
             break;
@@ -240,7 +244,7 @@ bool Etat8::transition(Automate & automate, Symbole* s){
             s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
             s2 = (Expression*) automate.popSymbole();
-            s1->valeur = s1->valeur * s2->valeur;
+            s1->set_valeur(s1->eval() * s2 ->eval());
             delete(s2);
             automate.reduction(3, s1);
             break;
@@ -248,7 +252,7 @@ bool Etat8::transition(Automate & automate, Symbole* s){
             s1 = (Expression*) automate.popSymbole();
             automate.popAndDestroySymbole();
             s2 = (Expression*) automate.popSymbole();
-            s1->valeur = s1->valeur * s2->valeur;
+            s1->set_valeur(s1->eval() * s2 ->eval());
             delete(s2);
             automate.reduction(3, s1);
             break;

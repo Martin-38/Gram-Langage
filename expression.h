@@ -17,6 +17,7 @@ class Expression : public Symbole {
     Expression(int valeur):Symbole(EXPR),valeur(valeur) {} 
     ~Expression() {}
     int eval();
+    void set_valeur(int val);
 };
 
 
