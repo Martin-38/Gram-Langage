@@ -58,13 +58,13 @@ void Automate::run() {
     } else {
         cout << "Syntaxe non reconnu : caractere invalide" << endl;
     }
-    pileSymboles.top()->Affiche();
+    //pileSymboles.top()->Affiche();
 }
 
 void Automate::decalage(Symbole * s, Etat * e) {
     pileSymboles.push(s);
     pileEtats.push(e);
-    lexer->Avancer(); // A VERIFIER S'IL Y A VRMT BESOIN D'UN AVANCEMENT
+    lexer->Avancer(); 
 }
 
 void Automate::transitionSimple(Symbole * s, Etat * e) {

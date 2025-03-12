@@ -54,6 +54,7 @@ bool Etat1::transition(Automate & automate, Symbole* s){
             automate.decalage(s, new Etat5());
             break;
         case FIN:
+            delete s;
             return true;
         default:
             cout<<"Erreur de syntaxe E1"<<endl;
