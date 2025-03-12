@@ -51,11 +51,10 @@ void Automate::run() {
     if (*pileSymboles.top() != ERREUR) {
         // int resultat = pileSymboles.top()->getValue();
         // cout << "Syntaxe correct" << endl << "Résultat : " << resultat << endl;
-        cout << "Syntaxe correcte" << endl;
+        cout << "\nSyntaxe correcte" << endl;
         Expression* finale = (Expression*) pileSymboles.top();
-        cout << "on sait jamais : ";
-        cout << *finale << endl;
-        finale->eval();
+        cout << "Le résultat de votre calcul est : ";
+        cout << finale->eval() << endl;
     } else {
         cout << "Syntaxe non reconnu : caractere invalide" << endl;
     }
