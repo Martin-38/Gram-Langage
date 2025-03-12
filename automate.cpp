@@ -17,6 +17,25 @@ Automate::Automate(string flux) {
   pileEtats.push(depart);
 } 
 
+Automate::~Automate() {
+    // Suppression des états dans la pile
+    while (!pileEtats.empty()) {
+        delete pileEtats.top();
+        pileEtats.pop();
+    }
+
+    // Suppression des symboles dans la pile
+    while (!pileSymboles.empty()) {
+        delete pileSymboles.top();
+        pileSymboles.pop();
+    }
+
+    // Suppression du lexer
+    delete lexer;
+}
+
+
+
 void Automate::run() {
     bool prochainEtat = false;
     while (!prochainEtat) {
@@ -34,6 +53,8 @@ void Automate::run() {
         // cout << "Syntaxe correct" << endl << "Résultat : " << resultat << endl;
         cout << "Syntaxe correcte" << endl;
         Expression* finale = (Expression*) pileSymboles.top();
+        cout << "on sait jamais : ";
+        cout << *finale << endl;
         finale->eval();
     } else {
         cout << "Syntaxe non reconnu : caractere invalide" << endl;

@@ -38,7 +38,8 @@ bool Etat0::transition(Automate & automate, Symbole* s){
             automate.transitionSimple(s, new Etat1());
             break;
         default:
-            cout<<"Erreur de syntaxe E0"<<endl;
+            cout<< "Erreur de syntaxe E0"<<endl;
+            exit(1);
             break;
     }
     return false;
@@ -56,6 +57,7 @@ bool Etat1::transition(Automate & automate, Symbole* s){
             return true;
         default:
             cout<<"Erreur de syntaxe E1"<<endl;
+            exit(1);
             break;
     }
     return false;
@@ -74,19 +76,19 @@ bool Etat2::transition(Automate & automate, Symbole* s){
             break;
         default:
             cout<<"Erreur de syntaxe"<<endl;
+            exit(1);
             break;
     }
     return false;
 }
 
 
-//PB ETAT 3 AVEC REDUCS
 bool Etat3::transition(Automate & automate, Symbole* s){
     Entier* s1;
     Expression* s2 ;
-    //cout << "Etat 3:";
-    //s->Affiche();
-    //cout << endl;
+    cout << "Etat 3:";
+    s->Affiche();
+    cout << endl;
     switch(*s){
         case PLUS:
             s1 = (Entier*) automate.popSymbole();
@@ -110,6 +112,7 @@ bool Etat3::transition(Automate & automate, Symbole* s){
             break;
         default:
             cout<<"Erreur de syntaxe E3"<<endl;
+            exit(1);
             break;
     }
     return false;
@@ -128,6 +131,7 @@ bool Etat4::transition(Automate & automate, Symbole* s){
             break;
         default:
             cout<<"Erreur de syntaxe"<<endl;
+            exit(1);
             break;
     }
     return false;
@@ -146,6 +150,7 @@ bool Etat5::transition(Automate & automate, Symbole* s){
             break;
         default:
             cout<<"Erreur de syntaxe"<<endl;
+            exit(1);
             break;
     }
     return false;
@@ -164,12 +169,13 @@ bool Etat6::transition(Automate & automate, Symbole* s){
             break;
         default:
             cout<<"Erreur de syntaxe"<<endl;
+            exit(1);
             break;
     }
     return false;
 }
 
-//PB REDUCTION
+
 bool Etat7::transition(Automate & automate, Symbole* s){
     Expression* s1;
     Expression* s2;
@@ -203,12 +209,13 @@ bool Etat7::transition(Automate & automate, Symbole* s){
             break;
         default:
             cout<<"Erreur de syntaxe E7"<<endl;
+            exit(1);
             break;
     }
     return false;
 }
 
-//PB REDUCTION
+
 bool Etat8::transition(Automate & automate, Symbole* s){
     switch(*s){
         Expression* s1;
@@ -247,12 +254,13 @@ bool Etat8::transition(Automate & automate, Symbole* s){
             break;
         default:
             cout<<"Erreur de syntaxe E8"<<endl;
+            exit(1);
             break;
     }
     return false;
 }
 
-//PB REDUCTION
+
 bool Etat9::transition(Automate & automate, Symbole* s){
     switch(*s){
         Expression* s1;
@@ -282,6 +290,7 @@ bool Etat9::transition(Automate & automate, Symbole* s){
             break;
         default:
             cout<<"Erreur de syntaxe E9"<<endl;
+            exit(1);
             break;
     }
     return false;

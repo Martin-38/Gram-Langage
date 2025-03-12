@@ -16,6 +16,7 @@ int main(void) {
       cout<<endl;
       l.Avancer();
    }*/
+   delete automate;
 
    return 0;
 }
